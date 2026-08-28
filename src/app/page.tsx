@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AgentBar } from "@/components/agent-bar";
 import { getSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
@@ -29,26 +30,36 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
 
-      <div className="signal" aria-hidden="true">
-        A2A
-      </div>
+      <header className="site-header">
+        <span className="wordmark">
+          vaishnav<span>.</span>
+        </span>
+        <span className="a2a-label">A2A portfolio agent</span>
+      </header>
 
       <section className="message" aria-labelledby="page-title">
-        <p className="identity">[ Vaishnav&apos;s Portfolio Agent ]</p>
         <h1 id="page-title">Use your agent.</h1>
         <p className="instruction">
-          This site is not meant to be browsed. Give your agent the Agent Card
-          below and ask it to speak to mine.
+          Connect to the A2A agent at
         </p>
 
         <a className="agent-card" href={agentCardUrl}>
-          <span>Agent Card</span>
+          <span className="agent-card-mark" aria-hidden="true">
+            ✦
+          </span>
           <code>{agentCardUrl}</code>
-          <span aria-hidden="true">↗</span>
+          <span className="agent-card-action">Agent Card&nbsp; ↗</span>
         </a>
 
-        <p className="protocol">Public · read-only · A2A 1.0 · JSON-RPC</p>
+        <p className="suggested-question">
+          and ask what Vaishnav has built around infrastructure and distributed
+          systems.
+        </p>
+
+        <AgentBar agentCardUrl={agentCardUrl} />
       </section>
+
+      <footer className="protocol">Public · read-only · A2A 1.0 · JSON-RPC</footer>
     </main>
   );
 }
