@@ -14,8 +14,11 @@
 
 html,
 body {
+  width: 100%;
+  max-width: 100%;
   margin: 0;
   min-height: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -42,26 +45,21 @@ button {
 .handoff {
   display: grid;
   width: 100%;
+  max-width: 100%;
   min-height: 100svh;
   padding: 1.5rem clamp(1.25rem, 4vw, 3.5rem) 1.25rem;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr) auto;
 }
 
 .site-header {
   display: flex;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   align-items: center;
-  justify-content: space-between;
-}
-
-.wordmark {
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.045em;
-}
-
-.wordmark span {
-  color: var(--accent);
+  justify-content: center;
+  text-align: center;
 }
 
 .a2a-label,
@@ -74,6 +72,8 @@ button {
 .message {
   display: flex;
   width: min(820px, 100%);
+  min-width: 0;
+  max-width: 100%;
   margin: auto;
   padding: clamp(4rem, 10vh, 7rem) 0 3rem;
   flex-direction: column;
@@ -97,20 +97,23 @@ h1 {
   line-height: 1.6;
 }
 
-.suggested-question {
-  max-width: 550px;
-  margin: 0.85rem 0 0;
-  color: #4b4a44;
-  font-size: clamp(0.92rem, 2vw, 1rem);
-  line-height: 1.55;
+.agent-tools {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 
-.agent-card {
+.prompt-card {
   display: grid;
   width: min(650px, 100%);
+  max-width: 100%;
   min-height: 3.5rem;
-  margin-top: 1rem;
+  margin: 1rem auto 0;
   padding: 0.55rem 0.65rem 0.55rem 1rem;
+  cursor: pointer;
   color: var(--ink);
   background: var(--paper);
   border: 1px solid color-mix(in srgb, var(--line) 82%, var(--soft) 18%);
@@ -121,13 +124,12 @@ h1 {
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 0.7rem;
   align-items: center;
-  text-align: left;
-  text-decoration: none;
+  text-align: center;
   transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
-.agent-card:hover,
-.agent-card:focus-visible {
+.prompt-card:hover,
+.prompt-card:focus-visible {
   border-color: color-mix(in srgb, var(--accent) 28%, var(--line) 72%);
   box-shadow:
     0 0 0 3px color-mix(in srgb, var(--accent) 10%, transparent),
@@ -135,21 +137,19 @@ h1 {
   outline: none;
 }
 
-.agent-card-mark {
+.prompt-card-mark {
   color: var(--accent);
   font-size: 0.9rem;
 }
 
-.agent-card code {
-  overflow: hidden;
+.prompt-card-text {
   color: var(--soft);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.74rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  text-align: center;
 }
 
-.agent-card-action {
+.prompt-card-action {
   min-height: 2.4rem;
   display: inline-flex;
   padding: 0 0.95rem;
@@ -165,7 +165,10 @@ h1 {
 
 .agent-picker {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   margin-top: 2.2rem;
+  text-align: center;
 }
 
 .agent-picker-title {
@@ -177,7 +180,9 @@ h1 {
 .agent-marquee {
   display: none;
   width: 100%;
-  overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: clip;
   mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
@@ -189,6 +194,8 @@ h1 {
 .agent-group {
   display: flex;
   width: max-content;
+  max-width: none;
+  flex: none;
   padding: 0 0.5rem;
   gap: 0.65rem;
   align-items: center;
@@ -233,8 +240,11 @@ h1 {
 
 .agent-picker-mobile {
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   padding-bottom: 0.4rem;
   overflow-x: auto;
+  overflow-y: hidden;
   overscroll-behavior-inline: contain;
   scrollbar-width: thin;
   scroll-snap-type: x mandatory;
@@ -254,8 +264,22 @@ h1 {
 }
 
 .protocol {
+  display: flex;
   margin: 0;
+  gap: 0.45rem;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+}
+
+.protocol a {
+  color: var(--soft);
+  text-underline-offset: 3px;
+}
+
+.protocol a:hover,
+.protocol a:focus-visible {
+  color: var(--ink);
 }
 
 @media (min-width: 768px) and (hover: hover) and (pointer: fine) {
@@ -296,13 +320,13 @@ h1 {
     padding-top: 4.5rem;
   }
 
-  .agent-card {
+  .prompt-card {
     padding-left: 0.85rem;
     border-radius: 1rem;
     grid-template-columns: auto minmax(0, 1fr);
   }
 
-  .agent-card-action {
+  .prompt-card-action {
     min-height: auto;
     padding: 0;
     background: transparent;
@@ -316,7 +340,7 @@ h1 {
     animation-play-state: paused;
   }
 
-  .agent-card,
+  .prompt-card,
   .agent-option {
     transition: none;
   }

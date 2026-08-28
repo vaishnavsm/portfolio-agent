@@ -3,7 +3,7 @@ import { AgentBar } from "@/components/agent-bar";
 import { getSiteUrl } from "@/lib/site-url";
 
 export const metadata: Metadata = {
-  title: "Use Vaishnav's agent",
+  title: "Vaishnav's Agentic Portfolio",
   description:
     "Give your agent Vaishnav's A2A Agent Card to learn about his work, writing, and experience.",
 };
@@ -31,35 +31,21 @@ export default function Home() {
       />
 
       <header className="site-header">
-        <span className="wordmark">
-          vaishnav<span>.</span>
-        </span>
         <span className="a2a-label">A2A portfolio agent</span>
       </header>
 
       <section className="message" aria-labelledby="page-title">
-        <h1 id="page-title">Use your agent.</h1>
-        <p className="instruction">
-          Connect to the A2A agent at
-        </p>
-
-        <a className="agent-card" href={agentCardUrl}>
-          <span className="agent-card-mark" aria-hidden="true">
-            ✦
-          </span>
-          <code>{agentCardUrl}</code>
-          <span className="agent-card-action">Agent Card&nbsp; ↗</span>
-        </a>
-
-        <p className="suggested-question">
-          and ask what Vaishnav has built around infrastructure and distributed
-          systems.
-        </p>
+        <h1 id="page-title">Vaishnav&apos;s Agentic Portfolio</h1>
+        <p className="instruction">Connect to portfolio with an A2A browser:</p>
 
         <AgentBar agentCardUrl={agentCardUrl} />
       </section>
 
-      <footer className="protocol">Public · read-only · A2A 1.0 · JSON-RPC</footer>
+      <footer className="protocol">
+        <a href={agentCardUrl}>Agent Card ↗</a>
+        <span aria-hidden="true">·</span>
+        <span>Public · read-only · A2A 1.0 · JSON-RPC</span>
+      </footer>
     </main>
   );
 }

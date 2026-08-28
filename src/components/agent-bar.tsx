@@ -104,30 +104,47 @@ export function AgentBar({ agentCardUrl }: { agentCardUrl: string }) {
   }, [prompt]);
 
   return (
-    <section className="agent-picker" aria-labelledby="agent-picker-title">
-      <p className="agent-picker-title" id="agent-picker-title">
-        Open with your agent
-      </p>
+    <section className="agent-tools" aria-labelledby="agent-picker-title">
+      <button
+        aria-label="Copy the A2A instruction"
+        className="prompt-card"
+        onClick={() => void copyPrompt("your agent")}
+        type="button"
+      >
+        <span className="prompt-card-mark" aria-hidden="true">
+          ✦
+        </span>
+        <span className="prompt-card-text">{prompt}</span>
+        <span className="prompt-card-action">
+          {status ? "Copied" : "Copy prompt"}
+        </span>
+      </button>
 
-      <div className="agent-picker-mobile">
-        <AgentGroup agents={agents} copyPrompt={copyPrompt} deepLinks={deepLinks} />
-      </div>
+      <div className="agent-picker">
+        <p className="agent-picker-title" id="agent-picker-title">
+          Open with your agent
+        </p>
 
-      <div className="agent-marquee">
-        <div className="agent-marquee-track">
+        <div className="agent-picker-mobile">
           <AgentGroup agents={agents} copyPrompt={copyPrompt} deepLinks={deepLinks} />
-          <AgentGroup
-            agents={agents}
-            copyPrompt={copyPrompt}
-            deepLinks={deepLinks}
-            duplicate
-          />
         </div>
-      </div>
 
-      <p className="agent-status" aria-live="polite" role="status">
-        {status || "Choose an agent, or open the Agent Card above."}
-      </p>
+        <div className="agent-marquee">
+          <div className="agent-marquee-track">
+            <AgentGroup agents={agents} copyPrompt={copyPrompt} deepLinks={deepLinks} />
+            <AgentGroup
+              agents={agents}
+              copyPrompt={copyPrompt}
+              deepLinks={deepLinks}
+              duplicate
+            />
+          </div>
+        </div>
+
+        <p className="agent-status" aria-live="polite" role="status">
+          {status || "Every option uses the same prompt."}
+        </p>
+      </div>
     </section>
   );
 }
